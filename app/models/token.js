@@ -30,14 +30,8 @@ tokenSchema.methods.getUserID = function () {
   return this.user_id;
 };
 
-tokenSchema.methods.checkToken = function (token) {
-  if (this.token === token && moment() <= this.due_date) {
-    return true;
-  } else if (this.token === token && moment() > this.due_date) {
-    return false;
-  } else {
-    return false;
-  }
+tokenSchema.methods.checkToken = function () {
+  return moment() <= this.due_date;
 };
 
 module.exports = mongoose.model('Token', tokenSchema);

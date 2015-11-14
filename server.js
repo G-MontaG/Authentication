@@ -34,7 +34,7 @@ app.use(session({
   resave: false,
   saveUninitialized: true,
   secret: config.cookieSecret,
-  cookie: {path: '/', maxAge: 60000, secure: true}
+  cookie: {path: '/', maxAge: 2592000000, secure: false}
 }));
 
 var compression = require('compression');
