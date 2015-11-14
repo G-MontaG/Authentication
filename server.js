@@ -1,11 +1,20 @@
 'use strict';
 
 const path = require('path');
-//var fs = require('fs');
+const fs = require('fs');
 const config = require('./config');
 
+const https = require('https');
 const express = require('express');
 const app = express();
+
+const hskey = fs.readFileSync('./config/https-key.pem');
+const hscert = fs.readFileSync('./config/https-cert.pem');
+
+const options = {
+  key: hskey,
+  cert: hscert
+};
 
 app.use(express.static(path.join(__dirname, 'public')));
 app.set('port', config.port);
@@ -25,7 +34,7 @@ app.use(session({
   resave: false,
   saveUninitialized: true,
   secret: config.cookieSecret,
-  cookie: {path: '/', maxAge: 60000, secure: false}
+  cookie: {path: '/', maxAge: 60000, secure: true}
 }));
 
 var compression = require('compression');
@@ -56,5 +65,5 @@ var csrfProtection = csrf({cookie: true});
 
 require('./app')(app);
 
-app.listen(app.get('port'));
+https.createServer(options, app).listen(app.get('port'));
 console.log("Server running on port: " + app.get('port'));
