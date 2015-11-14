@@ -1,0 +1,38 @@
+{
+  "name": "Authentication",
+  "private": true,
+  "version": "1.0.0",
+  "description": "",
+  "keywords": [],
+  "homepage": "",
+  "license": "MIT",
+  "author": {
+    "name": "Arthur Osipenko",
+    "email": "arthur.osipenko@gmail.com",
+    "url": "https://github.com/G-MontaG"
+  },
+  "contributors": [],
+  "main": "server.js",
+  "engines": {
+    "node": ">=4.2.2",
+    "npm": ">=2.14.7"
+  },
+  "dependencies": {
+    "express": "^4.13.3",
+    "body-parser": "^1.14.1",
+    "cookie-parser": "^1.4.0",
+    "express-session": "^1.12.1",
+    "compression": "^1.6.0",
+    "serve-favicon": "^2.3.0",
+    "morgan": "1.6.1",
+    "csurf": "^1.8.3",
+    "node-uuid": "^1.4.4",
+    "ejs": "^2.3.4",
+    "mongoose": "^4.2.4",
+    "lodash": "^3.10.1",
+    "moment": "^2.10.6"
+  },
+  "devDependencies": {
+    "bower": "^1.6.5"
+  }
+}

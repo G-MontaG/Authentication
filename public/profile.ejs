@@ -1,0 +1,47 @@
+<!doctype html>
+<html>
+<head>
+  <%- include('templates/head'); %>
+</head>
+<body>
+<div class="container">
+  <div class="page-header text-center">
+    <h1><span class="fa fa-anchor"></span> Profile Page</h1>
+    <a href="/logout" class="btn btn-default btn-sm">Logout</a>
+  </div>
+  <div class="row">
+    <div class="col-sm-6">
+      <div class="well">
+        <h3><span class="fa fa-user"></span> User</h3>
+        <h5>name:<%= user.name %></h5>
+        <h5>Email:<%= user.email %></h5>
+        <h5 style="word-break: break-all;">_id:<%= user._id %></h5>
+        <h5 style="word-break: break-all;">salt:<%= user.salt %></h5>
+        <h5 style="word-break: break-all;">passwordHash:<%= user.passwordHash %></h5>
+        <% if (locals.user.google_id)  { %>
+        <h5 style="word-break: break-all;">_id:<%= user.google_id %></h5>
+        <% } %>
+        <% if (locals.user.facebook_id)  { %>
+        <h5 style="word-break: break-all;">_id:<%= user.facebook_id %></h5>
+        <% } %>
+        <% if (locals.user.twitter_id)  { %>
+        <h5 style="word-break: break-all;">_id:<%= user.twitter_id %></h5>
+        <% } %>
+        <h5 style="word-break: break-all;">created:<%= user.created %></h5>
+        <h5 style="word-break: break-all;">photo:<%= user.photo %></h5>
+      </div>
+    </div>
+    <div class="col-sm-6">
+      <div class="well">
+        <h3><span class="fa fa-key"></span> Token</h3>
+        <h5 style="word-break: break-all;">_id:<%= token._id %></h5>
+        <h5 style="word-break: break-all;">user_id:<%= token.user_id %></h5>
+        <h5 style="word-break: break-all;">token:<%= token.token %></h5>
+        <h5 style="word-break: break-all;">due_date:<%= token.due_date %></h5>
+      </div>
+    </div>
+  </div>
+</div>
+<%- include('templates/script'); %>
+</body>
+</html>

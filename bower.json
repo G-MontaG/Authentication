@@ -1,0 +1,23 @@
+{
+  "name": "Authentication",
+  "version": "1.0.0",
+  "description": "Authenticating to popular services with Node.js",
+  "keywords": ["node", "auth", "authentication"],
+  "authors": ["Arthur Osipenko"],
+  "license": "MIT",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "bootstrap": "^3.3.5",
+    "fontawesome": "^4.4.0"
+  },
+  "devDependencies": {
+
+  }
+}

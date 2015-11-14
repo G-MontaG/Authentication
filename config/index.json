@@ -1,0 +1,5 @@
+{
+  "port": "8080",
+  "urlDB": "mongodb://localhost/auth",
+  "cookieSecret": "0d73481f-afdc-44c0-a190-623e8b27f7df"
+}
