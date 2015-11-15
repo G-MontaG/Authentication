@@ -29,7 +29,13 @@ module.exports = (app) => {
 
   require('./login')(app);
 
-  require('./signup')(app);
+  app.get('/signup', (req, res) => {
+    res.render('signup.ejs', {message: ''});
+  });
+
+  require('./signup-local')(app);
+
+  require('./signup-google')(app);
 
   app.use('/profile', (req, res, next) => {
     if (!req.session.token) {
@@ -38,37 +44,7 @@ module.exports = (app) => {
     return next();
   });
 
-  app.get('/profile', (req, res) => {
-    new Promise((resolve, reject) => {
-      Token.findOne({"token": req.session.token}, (err, token) => {
-        if (err) {
-          reject(console.error(err));
-        }
-        if (!token) {
-          reject(res.redirect('/login'));
-        }
-        else {
-          if (!token.checkToken()) {
-            reject(res.redirect('/login'));
-          } else {
-            resolve(token);
-          }
-        }
-      });
-    }).then((token) => {
-      User.findOne({"_id": token.getUserID()}, (err, user) => {
-        if (err) {
-          console.error(err);
-        }
-        if (!user) {
-          res.redirect('/login');
-        }
-        else {
-          res.render('profile.ejs', {user: user, token: token});
-        }
-      });
-    });
-  });
+  require('./profile');
 
   app.get('/logout', (req, res) => {
     new Promise((resolve, reject) => {
@@ -83,4 +59,5 @@ module.exports = (app) => {
       res.redirect('/');
     });
   });
+
 };

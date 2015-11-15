@@ -7,7 +7,7 @@ const uuid = require('node-uuid');
 let tokenSchema = mongoose.Schema({
   user_id: {type: mongoose.Schema.Types.ObjectId, required: true, unique: true},
   token: {type: String, required: true},
-  due_date: {type: Date, required: true}
+  expiry_date: {type: Date, required: true}
 });
 
 tokenSchema.methods.setToken = function (user_id) {
@@ -23,7 +23,7 @@ tokenSchema.methods.getToken = function () {
 };
 
 tokenSchema.methods.getDueDate = function () {
-  return this.due_date;
+  return this.expiry_date;
 };
 
 tokenSchema.methods.getUserID = function () {
@@ -31,7 +31,7 @@ tokenSchema.methods.getUserID = function () {
 };
 
 tokenSchema.methods.checkToken = function () {
-  return moment() <= this.due_date;
+  return moment() <= this.expiry_date;
 };
 
 module.exports = mongoose.model('Token', tokenSchema);

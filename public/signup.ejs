@@ -23,11 +23,13 @@
       <button type="submit" class="btn btn-warning btn-lg">Signup</button>
       <div class="text-danger" style="display: inline-block; margin-left: 20px;"><%= message %></div>
     </form>
+    <br>
+    <form action="/signup/google" method="post">
+      <button type="submit" class="btn btn-warning btn-lg">Google</button>
+    </form>
     <hr>
     <p>Already have an account? <a href="/login">Login</a></p>
-
     <p>Or go <a href="/">home</a>.</p>
-
     <div class="g-signin2" data-onsuccess="onSignIn" data-theme="dark"></div>
   </div>
 

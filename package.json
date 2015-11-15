@@ -31,7 +31,8 @@
     "ejs": "^2.3.4",
     "mongoose": "^4.2.4",
     "lodash": "^3.10.1",
-    "moment": "^2.10.6"
+    "moment": "^2.10.6",
+    "googleapis": "^2.1.6"
   },
   "devDependencies": {
     "bower": "^1.6.5"
