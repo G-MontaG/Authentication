@@ -4,9 +4,11 @@ const User = require('../models/user');
 const Token = require('../models/token');
 
 module.exports = (app) => {
+
   app.get('/login', (req, res) => {
     res.render('login.ejs', {message: ''});
   });
+
   app.post('/login/local', (req, res) => {
     new Promise((resolve, reject) => {
       User.findOne({"email": req.body.email}, (err, user) => {
@@ -45,4 +47,5 @@ module.exports = (app) => {
       console.error(err);
     });
   });
+
 };

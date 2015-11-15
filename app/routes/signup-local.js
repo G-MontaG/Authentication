@@ -5,6 +5,10 @@ const Token = require('../models/token');
 
 module.exports = (app) => {
 
+  app.get('/signup', (req, res) => {
+    res.render('signup.ejs', {message: ''});
+  });
+
   app.post('/signup/local', (req, res) => {
     new Promise((resolve, reject) => {
       User.findOne({"email": req.body.email}, (err, user) => {

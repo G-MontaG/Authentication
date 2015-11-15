@@ -11,18 +11,16 @@ let tokenSchema = mongoose.Schema({
 });
 
 tokenSchema.methods.setToken = function (user_id) {
-  if (this.user_id !== user_id) {
-    this.user_id = user_id;
-  }
+  this.user_id = user_id;
   this.token = uuid.v4();
-  this.due_date = moment().add(7, 'd');
+  this.expiry_date = moment().add(7, 'd');
 };
 
 tokenSchema.methods.getToken = function () {
   return this.token;
 };
 
-tokenSchema.methods.getDueDate = function () {
+tokenSchema.methods.getExpiryDate = function () {
   return this.expiry_date;
 };
 

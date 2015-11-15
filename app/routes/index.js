@@ -27,15 +27,11 @@ module.exports = (app) => {
     }
   });
 
-  require('./login')(app);
-
-  app.get('/signup', (req, res) => {
-    res.render('signup.ejs', {message: ''});
-  });
+  require('./login-local')(app);
 
   require('./signup-local')(app);
 
-  require('./signup-google')(app);
+  require('./google')(app);
 
   app.use('/profile', (req, res, next) => {
     if (!req.session.token) {

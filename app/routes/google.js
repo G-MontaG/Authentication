@@ -23,11 +23,11 @@ var url = oauth2Client.generateAuthUrl({
 
 module.exports = (app) => {
 
-  app.post('/signup/google', (req, res) => {
+  app.post('/*/google', (req, res) => {
     res.redirect(url);
   });
 
-  app.get('/signup/google?*', (req, res) => {
+  app.get('/*/google?*', (req, res) => {
     new Promise((resolve, reject) => {
       oauth2Client.getToken(req.query.code, function(err, tokens) {
         if(err) { reject(console.error(err)); }

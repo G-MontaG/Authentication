@@ -9,9 +9,6 @@ let userSchema = new mongoose.Schema({
   email: {type: String, required: true, unique: true},
   salt: {type: String},
   passwordHash: {type: String},
-  google_id: {type: String},
-  facebook_id: {type: String},
-  twitter_id: {type: String},
   created: {
     type: Date,
     "default": moment()
