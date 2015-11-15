@@ -27,16 +27,20 @@ module.exports = (app) => {
     res.redirect(url);
   });
 
-  app.get('/signup/google?*', (req, res, next) => {
-    oauth2Client.getToken(req.query.code, function(err, tokens) {
-      if(err) { console.error(err); }
-      oauth2Client.setCredentials(tokens);
-      res.redirect('https://www.googleapis.com/oauth2/v2/userinfo?access_token=' + oauth2Client.credentials.access_token);
+  app.get('/signup/google?*', (req, res) => {
+    new Promise((resolve, reject) => {
+      oauth2Client.getToken(req.query.code, function(err, tokens) {
+        if(err) { reject(console.error(err)); }
+        console.log(tokens);
+        resolve(tokens);
+      });
+    }).then((tokens) => {
+      res.redirect('https://www.googleapis.com/oauth2/v2/userinfo?access_token=' + tokens.access_token);
     });
   });
 
-  app.get('https://www.googleapis.com/oauth2/v2/userinfo?*', (req, res) => {
-    console.log(res.body);
+  app.get('https://www.googleapis.com/oauth2/v2/userinfo*', (req, res, next) => {
+    console.log('we hear');
   });
 
 };
