@@ -36,4 +36,9 @@ userSchema.methods.isValidID = function (type, id) {
   return this[type] === id;
 };
 
+userSchema.methods.updateByGoogle = function (data) {
+  this.name = data.name;
+  this.photo = data.picture;
+};
+
 module.exports = mongoose.model('User', userSchema);

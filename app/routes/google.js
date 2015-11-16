@@ -1,5 +1,6 @@
 "use strict";
 
+const https = require('https');
 const User = require('../models/user');
 const Token = require('../models/token');
 
@@ -17,25 +18,71 @@ const scopes = [
   'https://www.googleapis.com/auth/userinfo.profile'
 ];
 
-var url = oauth2Client.generateAuthUrl({
+const url = oauth2Client.generateAuthUrl({
   scope: scopes
 });
 
 module.exports = (app) => {
 
-  app.post('/*/google', (req, res) => {
+  app.post('/signup/google', (req, res) => {
     res.redirect(url);
   });
 
-  app.get('/*/google?*', (req, res) => {
+  app.get('/signup/google?*', (req, res) => {
     new Promise((resolve, reject) => {
       oauth2Client.getToken(req.query.code, function(err, tokens) {
         if(err) { reject(console.error(err)); }
-        console.log(tokens);
         resolve(tokens);
       });
     }).then((tokens) => {
-      res.redirect('https://www.googleapis.com/oauth2/v2/userinfo?access_token=' + tokens.access_token);
+      return new Promise((resolve, reject) => {
+        https.get("https://www.googleapis.com/oauth2/v2/userinfo?access_token=" + tokens.access_token, (res) => {
+          res.on("data", function(body) {
+            let sended = { tokens: tokens, body: JSON.parse(body.toString()) };
+            resolve(sended);
+          });
+        }).on('error', (err) => {
+          reject(console.error(err.message));
+        });
+      }).then((sended) => {
+          return sended;
+      });
+    }).then((sended) => {
+      console.log(sended.body.email);
+      new Promise((resolve, reject) => {
+        User.findOne({email: sended.body.email}, (err, user) => {
+          if (err) {
+            reject(console.error(err));
+          }
+          if (user) {
+            user.updateByGoogle(sended.body);
+            resolve(user);
+          }
+          else {
+            let newUser = new User({
+              name: sended.body.name,
+              email: sended.body.email,
+              photo: sended.body.picture
+            });
+            newUser.save((err, user) => {
+              if (err) {
+                reject(console.error(err));
+              }
+              resolve(user);
+            });
+          }
+        });
+      }).then((user) => {
+        let newToken = new Token();
+        newToken.setToken(user._id);
+        newToken.save((err, token) => {
+          if (err) {
+            console.error(err);
+          }
+          req.session.token = token.token;
+          res.redirect('/profile');
+        });
+      });
     });
   });
 

@@ -40,7 +40,7 @@ module.exports = (app) => {
     return next();
   });
 
-  require('./profile');
+  require('./profile')(app);
 
   app.get('/logout', (req, res) => {
     new Promise((resolve, reject) => {

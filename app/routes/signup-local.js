@@ -11,7 +11,7 @@ module.exports = (app) => {
 
   app.post('/signup/local', (req, res) => {
     new Promise((resolve, reject) => {
-      User.findOne({"email": req.body.email}, (err, user) => {
+      User.findOne({email: req.body.email}, (err, user) => {
         if (err) {
           reject(console.error(err));
         }
