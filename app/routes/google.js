@@ -48,7 +48,6 @@ module.exports = (app) => {
           return sended;
       });
     }).then((sended) => {
-      console.log(sended.body.email);
       new Promise((resolve, reject) => {
         User.findOne({email: sended.body.email}, (err, user) => {
           if (err) {
@@ -91,10 +90,6 @@ module.exports = (app) => {
         });
       });
     });
-  });
-
-  app.get('https://www.googleapis.com/oauth2/v2/userinfo*', (req, res, next) => {
-    console.log('we hear');
   });
 
 };

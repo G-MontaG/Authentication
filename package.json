@@ -32,6 +32,7 @@
     "mongoose": "^4.2.4",
     "lodash": "^3.10.1",
     "moment": "^2.10.6",
+    "oauth": "^0.9.14",
     "googleapis": "^2.1.6"
   },
   "devDependencies": {
