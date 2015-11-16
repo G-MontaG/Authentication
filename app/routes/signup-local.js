@@ -42,6 +42,8 @@ module.exports = (app) => {
         req.session.token = token.token;
         res.redirect('/profile');
       });
+    }).catch((err) => {
+      console.error(err);
     });
   });
 

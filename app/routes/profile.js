@@ -34,6 +34,8 @@ module.exports = (app) => {
           res.render('profile.ejs', {user: user, token: token});
         }
       });
+    }).catch((err) => {
+      console.error(err);
     });
   });
 

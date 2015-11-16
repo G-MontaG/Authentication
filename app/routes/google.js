@@ -24,11 +24,11 @@ const url = oauth2Client.generateAuthUrl({
 
 module.exports = (app) => {
 
-  app.post('/signup/google', (req, res) => {
+  app.post('/:type/google', (req, res) => {
     res.redirect(url);
   });
 
-  app.get('/signup/google?*', (req, res) => {
+  app.get('/:type/google?*', (req, res) => {
     new Promise((resolve, reject) => {
       oauth2Client.getToken(req.query.code, function(err, tokens) {
         if(err) { reject(console.error(err)); }
@@ -72,6 +72,13 @@ module.exports = (app) => {
             });
           }
         });
+      }).then((user) => {
+        Token.remove({'user_id': user._id}, (err, token) => {
+          if (err) {
+            console.error(err);
+          }
+        });
+        return user;
       }).then((user) => {
         let newToken = new Token();
         newToken.setToken(user._id);

@@ -53,6 +53,8 @@ module.exports = (app) => {
     }).then(() => {
       req.session.destroy();
       res.redirect('/');
+    }).catch((err) => {
+      console.error(err);
     });
   });
 
