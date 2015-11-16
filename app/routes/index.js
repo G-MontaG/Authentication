@@ -33,6 +33,8 @@ module.exports = (app) => {
 
   require('./google')(app);
 
+  require('./facebook')(app);
+
   app.use('/profile', (req, res, next) => {
     if (!req.session.token) {
       return res.redirect('/');

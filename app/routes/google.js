@@ -14,8 +14,7 @@ const oauth2Client = new OAuth2(
 );
 
 const scopes = [
-  'https://www.googleapis.com/auth/userinfo.email',
-  'https://www.googleapis.com/auth/userinfo.profile'
+  'https://www.googleapis.com/auth/userinfo.email'
 ];
 
 const url = oauth2Client.generateAuthUrl({
@@ -72,7 +71,7 @@ module.exports = (app) => {
           }
         });
       }).then((user) => {
-        Token.remove({'user_id': user._id}, (err, token) => {
+        Token.remove({user_id: user._id}, (err, token) => {
           if (err) {
             console.error(err);
           }

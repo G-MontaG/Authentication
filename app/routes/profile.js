@@ -7,7 +7,7 @@ module.exports = (app) => {
 
   app.get('/profile', (req, res) => {
     new Promise((resolve, reject) => {
-      Token.findOne({"token": req.session.token}, (err, token) => {
+      Token.findOne({token: req.session.token}, (err, token) => {
         if (err) {
           reject(console.error(err));
         }
@@ -23,7 +23,7 @@ module.exports = (app) => {
         }
       });
     }).then((token) => {
-      User.findOne({"_id": token.getUserID()}, (err, user) => {
+      User.findOne({_id: token.getUserID()}, (err, user) => {
         if (err) {
           console.error(err);
         }
